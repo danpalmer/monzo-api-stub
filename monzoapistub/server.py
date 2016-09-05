@@ -43,3 +43,17 @@ def whoami():
         'user_id': db['user'].user_id,
     })
 
+
+@server.route('/accounts')
+def accounts():
+    return json.dumps({
+        'accounts': [
+            {
+                'id': account.account_id,
+                'description': account.description,
+                'created': account.created.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            }
+            for account in db['accounts']
+        ]
+    })
+

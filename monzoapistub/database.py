@@ -13,5 +13,8 @@ db = {
 }
 
 
-def init():
+def init(num_accounts):
     db['user'] = datatypes.User()
+
+    for _ in range(num_accounts):
+        db['accounts'].append(datatypes.Account(db['user']))
