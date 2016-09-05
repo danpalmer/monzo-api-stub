@@ -1,5 +1,6 @@
 import click
 
+from . import database
 from .server import server
 
 @click.command()
@@ -7,6 +8,7 @@ from .server import server
 @click.option('--port', default=3000, help='Port for the HTTP server.')
 def cli(host, port):
     """Stub Monzo API"""
+    database.init()
     server.run(host=host, port=port)
 
 if __name__ == '__main__':
