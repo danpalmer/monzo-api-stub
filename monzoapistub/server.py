@@ -51,7 +51,7 @@ def accounts():
                 'description': account.description,
                 'created': account.created.strftime('%Y-%m-%dT%H:%M:%SZ'),
             }
-            for account in db['accounts']
+            for account in db['accounts'].values()
         ]
     })
 
