@@ -1,5 +1,5 @@
 from urllib import parse
-from flask import Flask, json, request, redirect
+from flask import Flask, json, request, redirect, abort
 
 from .database import db
 from .datatypes import generate_token
@@ -53,5 +53,21 @@ def accounts():
             }
             for account in db['accounts'].values()
         ]
+    })
+
+
+@server.route('/balance')
+def balance():
+    account_id = request.args['account_id']
+
+    try:
+        account = db['accounts'][account_id]
+    except KeyError:
+        abort(400)
+
+    return json.dumps({
+        'balance': account.balance,
+        'spend_today': account.spend_today,
+        'currency': account.currency,
     })
 
