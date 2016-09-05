@@ -33,3 +33,13 @@ def oauth2_token():
         'token_type': 'Bearer',
         'user_id': db['user'].user_id,
     })
+
+
+@server.route('/ping/whoami')
+def whoami():
+    return json.dumps({
+        'authenticated': True,
+        'client_id': generate_token(),
+        'user_id': db['user'].user_id,
+    })
+
