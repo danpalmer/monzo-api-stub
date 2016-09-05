@@ -8,9 +8,11 @@ from .server import server
 @click.option('--port', default=3000, help='Port for the HTTP server.')
 @click.option('--num-accounts', default=1,
     help='Number of accounts to give the user')
-def cli(host, port, num_accounts):
+@click.option('--currency', default='GBP',
+    help='Currency to use, pass "random" to use random currencies')
+def cli(host, port, num_accounts, currency):
     """Stub Monzo API"""
-    database.init(num_accounts)
+    database.init(num_accounts, currency)
     server.run(host=host, port=port)
 
 if __name__ == '__main__':

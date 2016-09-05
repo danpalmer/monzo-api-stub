@@ -1,3 +1,5 @@
+import random
+
 from faker import Faker
 
 
@@ -10,10 +12,17 @@ class User(object):
 
 
 class Account(object):
-    def __init__(self, user):
+    def __init__(self, user, currency):
         self.account_id = generate_monzo_id('acc')
         self.description = '%s\'s %s' % (user.name, fake.word().title())
         self.created = fake.date_time_between(start_date='-1y', end_date='now')
+        self.balance = random.randint(100, 100000)
+        self.spend_today = random.randint(100, 10000)
+
+        if currency == 'random':
+            self.currency = fake.currency_code()
+        else:
+            self.currency = currency
 
 
 def generate_token():

@@ -14,9 +14,9 @@ db = {
 }
 
 
-def init(num_accounts):
+def init(num_accounts, currency):
     db['user'] = datatypes.User()
 
     for _ in range(num_accounts):
-        account = datatypes.Account(db['user'])
-        db['accounts'][account.accout_id] = account
+        account = datatypes.Account(db['user'], currency)
+        db['accounts'][account.account_id] = account
