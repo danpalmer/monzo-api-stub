@@ -15,9 +15,7 @@ def root():
     code = generate_token()
 
     uri = parse.urlparse(redirect_uri)
-    query = parse.parse_qsl(uri.query)
-    query.append(('state', state))
-    query.append(('code', code))
+    query = parse.parse_qsl(uri.query) + [('state', state), ('code', code)]
     uri = uri._replace(query=parse.urlencode(query))
 
     return redirect(parse.urlunparse(uri))
