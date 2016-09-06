@@ -28,7 +28,7 @@ def root():
     return redirect(parse.urlunparse(uri))
 
 
-@server.route('/oauth2/token')
+@server.route('/oauth2/token/')
 def oauth2_token():
     return json.dumps({
         'access_token': generate_token(),
@@ -40,7 +40,7 @@ def oauth2_token():
     })
 
 
-@server.route('/ping/whoami')
+@server.route('/ping/whoami/')
 def whoami():
     return json.dumps({
         'authenticated': True,
@@ -49,7 +49,7 @@ def whoami():
     })
 
 
-@server.route('/accounts')
+@server.route('/accounts/')
 def accounts():
     return json.dumps({
         'accounts': [
@@ -63,7 +63,7 @@ def accounts():
     })
 
 
-@server.route('/balance')
+@server.route('/balance/')
 def balance():
     account_id = request.args['account_id']
 
@@ -79,7 +79,7 @@ def balance():
     })
 
 
-@server.route('/transactions/<transaction_id>')
+@server.route('/transactions/<transaction_id>/')
 def transaction(transaction_id):
     # Search all the accounts for the matching transaction
     transaction = None
@@ -98,7 +98,7 @@ def transaction(transaction_id):
     })
 
 
-@server.route('/transactions')
+@server.route('/transactions/')
 def transactions():
     account_id = request.args['account_id']
 
