@@ -49,7 +49,7 @@ def accounts():
             {
                 'id': account.account_id,
                 'description': account.description,
-                'created': account.created.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                'created': rfc3339(account.created),
             }
             for account in db['accounts'].values()
         ]
@@ -71,3 +71,9 @@ def balance():
         'currency': account.currency,
     })
 
+
+
+def rfc3339(d):
+    if d is None:
+        return ''
+    return d.strftime('%Y-%m-%dT%H:%M:%SZ')
