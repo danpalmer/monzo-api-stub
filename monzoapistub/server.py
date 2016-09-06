@@ -8,6 +8,13 @@ from .datatypes import generate_token
 server = Flask('monzo-api-stub')
 
 
+@server.after_request
+def access_control_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Authorization'
+    return response
+
+
 @server.route('/')
 def root():
     state = request.args['state']
