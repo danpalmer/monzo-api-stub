@@ -72,6 +72,87 @@ def balance():
     })
 
 
+@server.route('/transactions/<transaction_id>')
+def transaction(transaction_id):
+    # Search all the accounts for the matching transaction
+    transaction = None
+    for _, transactions in db['transactions'].items():
+        transaction = transactions.get(transaction_id)
+        if transaction:
+            break
+
+    if not transaction:
+        abort(404)
+
+    expand_merchant = request.args.get('expand[]') == 'merchant'
+
+    return json.dumps({
+        'transaction': transaction_dict(transaction, expand_merchant),
+    })
+
+
+@server.route('/transactions')
+def transactions():
+    account_id = request.args['account_id']
+
+    try:
+        transactions = db['transactions'][account_id]
+    except KeyError:
+        abort(400)
+
+    print(transactions)
+
+    expand_merchant = request.args.get('expand[]') == 'merchant'
+
+    return json.dumps({
+        'transactions': [
+            transaction_dict(t, expand_merchant) for t in transactions.values()
+        ],
+    })
+
+
+def transaction_dict(t, expand_merchant):
+    print(t)
+    if expand_merchant:
+        merchant = merchant_dict(t.merchant)
+    else:
+        merchant = t.merchant.merchant_id
+
+    return {
+        'account_balance': t.account_balance,
+        'amount': t.amount,
+        'created': rfc3339(t.created),
+        'currency': t.currency,
+        'description': t.description,
+        'id': t.transaction_id,
+        'merchant': merchant,
+        'metadata': t.metadata,
+        'notes': t.notes,
+        'is_load': t.is_load,
+        'settled': rfc3339(t.settled),
+    }
+
+
+def merchant_dict(m):
+    return {
+        'address': {
+            'address': m.address.address,
+            'city': m.address.city,
+            'country': m.address.country,
+            'latitude': float(m.address.latitude),
+            'longitude': float(m.address.longitude),
+            'postcode': m.address.postcode,
+            'region': m.address.region,
+        },
+        'created': rfc3339(m.created),
+        'group_id': m.merchant_group_id,
+        'id': m.merchant_id,
+        'logo': m.logo,
+        'emoji': m.emoji,
+        'name': m.name,
+        'category': m.category,
+    }
+
 
 def rfc3339(d):
     if d is None:
