@@ -100,8 +100,6 @@ def transactions():
     except KeyError:
         abort(400)
 
-    print(transactions)
-
     expand_merchant = request.args.get('expand[]') == 'merchant'
 
     return json.dumps({
@@ -112,7 +110,6 @@ def transactions():
 
 
 def transaction_dict(t, expand_merchant):
-    print(t)
     if expand_merchant:
         merchant = merchant_dict(t.merchant)
     else:
