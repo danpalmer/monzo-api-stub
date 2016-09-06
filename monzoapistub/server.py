@@ -28,11 +28,11 @@ def root():
     return redirect(parse.urlunparse(uri))
 
 
-@server.route('/oauth2/token/')
+@server.route('/oauth2/token/', methods=['POST'])
 def oauth2_token():
     return json.dumps({
         'access_token': generate_token(),
-        'client_id': request.args['client_id'],
+        'client_id': request.form['client_id'],
         'expires_in': 21600,
         'refresh_token': generate_token(),
         'token_type': 'Bearer',
