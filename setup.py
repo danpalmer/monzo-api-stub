@@ -4,7 +4,7 @@ readme = open('README.rst').read()
 
 setup(
     name='monzo-api-stub',
-    version='0.0.1',
+    version='0.1.0',
     description="Stub API for Monzo",
     long_description=readme,
     author="Dan Palmer",
