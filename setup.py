@@ -18,6 +18,7 @@ setup(
         'click>=6.6',
         'flask>=0.11',
         'fake-factory>=0.6.0',
+        'emoji>=0.3.9',
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
