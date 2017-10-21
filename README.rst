@@ -3,6 +3,11 @@ monzo-api-stub
 
 Stub API for Monzo.
 
+Note about Monzo API deprecation
+--------------------------------
+
+The Monzo API is essentially deprecated at this point. It has not been in active development since early 2016 (as far as I can tell), and will likely not be worked on until mid-2018, as the UK are introducing new regulations for open banking infrastructure which will influence the future of Monzo's API. I'll happily accept PRs to this repo, but given the state of the API's development I have ceased working with the Monzo API myself so will not be maintaining this until API development picks up again.
+
 Installation
 ------------
 
